@@ -3,7 +3,6 @@ body{background:#ddd; padding:30px 0; font-family:Raleway, Arial, Helvetica, san
 h1{text-align:center; margin:0 0 30px; font-family:Oswald, Arial, Helvetica, sans-serif;}
 .button{background:black; color:white; padding:5px 10px; border-radius:5px;}
 .button:hover{text-decoration:none; background:white; border:1px solid black; color:black;}
-.button:hover a{}
 
 .container.main{background:white; border:1px solid #ccc; border-radius:15px; box-shadow:2px 3px 4px 2px #d0d0d0; padding:15px;}
 .legend{padding:10px; font-weight:700; margin-bottom:10px;}
