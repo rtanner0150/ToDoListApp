@@ -3,11 +3,55 @@
     <head>
         <meta charset="utf-8">
         <title>To-Do Lists</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1>To-Do Lists</h1>
-        <p id="output"></p>
+        
+        <div class="container main">
+            <div class="legend">
+                <div class="row">
+                    <div class="name col-12 col-md-2">Task</div>
+                    <div class="assignee col-12 col-md-2">Assignee</div>
+                    <div class="priority col-12 col-md-2">Priority</div>
+                    <div class="edit col-12 col-md-2">Edit</div>
+                    <div class="completed col-12 col-md-4">Completed</div>
+                </div>
+            </div>
+            <div class="task">
+                <div class="row">
+                    <div class="name col-12 col-md-2">Make some tasks</div>
+                    <div class="assignee col-12 col-md-2">Ryan</div>
+                    <div class="priority green col-12 col-md-2">Low</div>
+                    <div class="edit col-12 col-md-2"><i class="fas fa-edit"></i></div>
+                    <div class="completed col-12 col-md-4"><i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
+            <div class="task">
+                <div class="row">
+                    <div class="name col-12 col-md-2">Build a UI</div>
+                    <div class="assignee col-12 col-md-2">Ryan</div>
+                    <div class="priority red col-12 col-md-2">High</div>
+                    <div class="edit col-12 col-md-2"><i class="fas fa-edit"></i></div>
+                    <div class="completed col-12 col-md-4" data-completed="true"><i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
+            <div class="task">
+                <div class="row">
+                    <div class="name col-12 col-md-2">Take a shit</div>
+                    <div class="assignee col-12 col-md-2">Ryan</div>
+                    <div class="priority orange col-12 col-md-2">Medium</div>
+                    <div class="edit col-12 col-md-2"><i class="fas fa-edit"></i></div>
+                    <div class="completed col-12 col-md-4"><i class="fas fa-check-circle"></i></div>
+                </div>
+            </div>
+            <div class="add"><a class="button" href="#">Add a Task</a></div>
+        </div>
 
-        <script src="server.js"></script>
+        <!-- <script src="server.js"></script> -->
+        <script src="https://kit.fontawesome.com/7815feaa29.js" crossorigin="anonymous"></script>
     </body>
 </html>

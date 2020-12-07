@@ -4,7 +4,10 @@ const connectionString = 'mongodb+srv://rtanner:Stealth20@todolistapp.e1vg3.mong
 let Task = require('./models/Task.js');
 let List = require('./models/List.js');
 
-mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+    if (err) return console.errors(err);
+    console.log('Connected to database');
+});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
@@ -37,7 +40,7 @@ db.once('open', function(){
 
     let myList = List.find().exec(function(err, lists){
         if (err) return console.errors(err);
-        return lists[0];
+        console.log(lists[0]);
     })
-    document.getElementById('output').innerHTML = myList;
+    //document.getElementById('output').innerHTML = myList;
 });
