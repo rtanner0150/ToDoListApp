@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-const connectionString = 'mongodb+srv://rtanner:Stealth20@todolistapp.e1vg3.mongodb.net/todolist-db?retryWrites=true&w=majority'
+const connectionString = 'mongodb+srv://rtanner:Stealth20@todolistapp.e1vg3.mongodb.net/todolist-db?retryWrites=true&w=majority';
+const express = require('express');
+const app = express();
+const port = 3000;
+const path = require('path');
 
 let Task = require('./models/Task.js');
 let List = require('./models/List.js');
@@ -8,10 +12,50 @@ mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: t
     if (err) return console.errors(err);
     console.log('Connected to database');
 });
+//open connection to db
 const db = mongoose.connection;
+//error handling for db connection
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function(){
-    console.log('mongoose connected');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.listen(port, () => {
+    console.log('The Express server is running at port ' + port);
+});
+
+app.get('/tasks', (request, response) => {
+    Task.find((err, items) => {
+        if (err) return console.error(err);
+        response.send(items);
+    })
+});
+
+app.get('/tasks/:id', (request, response) => {
+    Task.findOne({_id: request.params.id}).exec((err, item) => {
+        if (err) return console.error(err);
+        response.send(item);
+    })
+});
+
+app.get('/search/:prop/:val', (request, response) => {
+    let propParam = request.params.prop;
+    let valParam = request.params.val;
+    console.log(propParam, valParam);
+    //let valParam = new RegExp(request.params.val, 'i');
+    Task.find({propParam: valParam}).exec((err, items) => {
+        if (err) return console.error(err);
+        response.send(items);
+    })
+});
+
+// app.delete('/tasks/:id', (request, response) => {
+//     Task.findOneAndDelete({_id: request.params.id}).exec((err, item) => {
+
+//     });
+// });
+
+// db.once('open', function(){
+//     console.log('mongoose connected');
 
     // const poopSchema = new mongoose.Schema({
     //     name: String,
@@ -65,5 +109,5 @@ db.once('open', function(){
     // });
     // console.log(myList);
 
-    Task.findOneAndUpdate({name: 'Do Laundry'}, {priority: 'Low'}, function(){console.log('item updated?')});
-});
+    //Task.findOneAndUpdate({name: 'Do Laundry'}, {priority: 'Low'}, function(){console.log('item updated?')});
+// });
