@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>To-Do Lists</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Edit a Task</h1>
+        
+        <div class="container main">
+            <div class="legend">
+                <div class="row">
+                    <div class="col-12 col-md-2 name">
+                        <label for="name">Task Name</label>
+                        <input type="text" id="name">
+                    </div>
+                    <div class="col-12 col-md-2 assignee">
+                        <label for="assignee">Assignee</label>
+                        <input type="text" id="assignee">
+                    </div>
+                    <div class="col-12 col-md-2 priority">
+                        <label for="priority">Priority</label>
+                        <select id="priority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-2 completed">
+                        <label for="completed">Completed</label>
+                        <select id="completed">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="add"><a class="button" href="#" id="updateBtn" onclick="updateTask()">Update Task</a></div>
+        </div>
+
+        <!-- <script src="server.js"></script> -->
+        <script src="https://kit.fontawesome.com/7815feaa29.js" crossorigin="anonymous"></script>
+        <script src="script.js"></script>
+        <script>
+            function selectItemByValue(elmnt, value){
+                for(var i=0; i < elmnt.options.length; i++){
+                    if(elmnt.options[i].value == value) elmnt.selectedIndex = i;
+                }
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            let nameInput = document.getElementById('name');
+            let assigneeInput = document.getElementById('assignee');
+            let prioritySelect = document.getElementById('priority');
+            let completedSelect = document.getElementById('completed');
+            getSingleTask(id).then((task) => {
+                nameInput.value = task.name;
+                assigneeInput.value = task.assignedTo;
+                selectItemByValue(prioritySelect, task.priority);
+                selectItemByValue(completedSelect, task.completed);
+            }).catch((err) => {
+                console.log(err);
+            });
+        </script>
+    </body>
+</html>

@@ -11,49 +11,46 @@
     <body>
         <h1>To-Do Lists</h1>
         
-        <div class="container main">
+        <div class="container main" id="taskList">
             <div class="legend">
                 <div class="row">
-                    <div class="name col-12 col-md-2">Task</div>
+                    <div class="name col-12 col-md-2">Task Name</div>
                     <div class="assignee col-12 col-md-2">Assignee</div>
                     <div class="priority col-12 col-md-2">Priority</div>
+                    <div class="completed col-12 col-md-2">Completed</div>
                     <div class="edit col-12 col-md-2">Edit</div>
-                    <div class="completed col-12 col-md-4">Completed</div>
+                    <div class="delete col-12 col-md-2">Delete</div>
                 </div>
             </div>
-            <div class="task">
-                <div class="row">
-                    <div class="name col-12 col-md-2">Make some tasks</div>
-                    <div class="assignee col-12 col-md-2">Ryan</div>
-                    <div class="priority green col-12 col-md-2">Low</div>
-                    <div class="edit col-12 col-md-2"><i class="fas fa-edit"></i></div>
-                    <div class="completed col-12 col-md-4"><i class="fas fa-check-circle"></i></div>
-                </div>
-            </div>
-            <div class="task">
-                <div class="row">
-                    <div class="name col-12 col-md-2">Build a UI</div>
-                    <div class="assignee col-12 col-md-2">Ryan</div>
-                    <div class="priority red col-12 col-md-2">High</div>
-                    <div class="edit col-12 col-md-2"><i class="fas fa-edit"></i></div>
-                    <div class="completed col-12 col-md-4" data-completed="true"><i class="fas fa-check-circle"></i></div>
-                </div>
-            </div>
-            <div class="task">
-                <div class="row">
-                    <div class="name col-12 col-md-2">Take a shit</div>
-                    <div class="assignee col-12 col-md-2">Ryan</div>
-                    <div class="priority orange col-12 col-md-2">Medium</div>
-                    <div class="edit col-12 col-md-2"><i class="fas fa-edit"></i></div>
-                    <div class="completed col-12 col-md-4"><i class="fas fa-check-circle"></i></div>
-                </div>
-            </div>
-            <div class="add"><a class="button" href="#">Add a Task</a></div>
-            <button onclick="clickButton()">Click for items</button>
         </div>
 
         <!-- <script src="server.js"></script> -->
         <script src="https://kit.fontawesome.com/7815feaa29.js" crossorigin="anonymous"></script>
         <script src="script.js"></script>
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                getToDoList().then((tasks) => {
+                    let listContainer = document.getElementById('taskList');
+                    tasks.forEach((task) => {
+                        let taskHTML = `
+                        <div class="task" data-id="${task._id}">
+                            <div class="row">
+                                <div class="name col-12 col-md-2">${task.name}</div>
+                                <div class="assignee col-12 col-md-2">${task.assignedTo}</div>
+                                <div class="priority ${task.priority.toLowerCase()} col-12 col-md-2">${task.priority}</div>
+                                <div class="completed col-12 col-md-2" data-completed="${task.completed}"><i class="fas fa-check-circle"></i></div>
+                                <div class="edit col-12 col-md-2"><a href="./edit.html?id=${task._id}"><i class="fas fa-edit"></i></a></div>
+                                <div class="delete col-12 col-md-2" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
+                            </div>
+                        </div>
+                        `;
+                        listContainer.innerHTML += taskHTML;
+                    })
+                    listContainer.innerHTML += `<div class="add"><a class="button" href="add.html">Add a Task</a></div>`;
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+        </script>
     </body>
 </html>
