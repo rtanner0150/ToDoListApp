@@ -17,7 +17,7 @@
                     <div class="col-12 col-md-4 name">
                         <label for="name">Task Name</label>
                     </div>
-                    <div class="col-12 col-md-3 assignee">
+                    <div class="col-12 col-md-2 assignee">
                         <label for="assignee">Assignee</label>
                     </div>
                     <div class="col-12 col-md-2 priority">
@@ -58,11 +58,6 @@
         <script src="https://kit.fontawesome.com/7815feaa29.js" crossorigin="anonymous"></script>
         <script src="script.js"></script>
         <script>
-            function selectItemByValue(elmnt, value){
-                for(var i=0; i < elmnt.options.length; i++){
-                    if(elmnt.options[i].value == value) elmnt.selectedIndex = i;
-                }
-            }
             let nameInput = document.getElementById('name');
             let assigneeInput = document.getElementById('assignee');
             let prioritySelect = document.getElementById('priority');
@@ -70,8 +65,8 @@
             getSingleTask(taskId).then((task) => {
                 nameInput.value = task.name;
                 assigneeInput.value = task.assignedTo;
-                selectItemByValue(prioritySelect, task.priority);
-                selectItemByValue(completedSelect, String(task.completed));
+                prioritySelect.value = task.priority;
+                completedSelect.value = String(task.completed);
             }).catch((err) => {
                 console.log(err);
             });
