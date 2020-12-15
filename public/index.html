@@ -36,9 +36,9 @@
                         <div class="task" data-id="${task._id}">
                             <div class="row">
                                 <div class="name col-12 col-md-4">${task.name}</div>
-                                <div class="assignee col-12 col-md-3">${task.assignedTo}</div>
+                                <div class="assignee col-12 col-md-2">${task.assignedTo}</div>
                                 <div class="priority ${task.priority.toLowerCase()} col-12 col-md-2">${task.priority}</div>
-                                <div class="completed col-12 col-md-1" data-completed="${task.completed}" onclick="toggleCompleted(this)"><i class="fas fa-check-circle"></i></div>
+                                <div class="completed col-12 col-md-2" data-completed="${task.completed}" onclick="toggleCompleted(this)"><i class="fas fa-check-circle"></i></div>
                                 <div class="edit col-12 col-md-1"><a href="./edit.html?id=${task._id}"><i class="fas fa-edit"></i></a></div>
                                 <div class="delete col-12 col-md-1" onclick="deleteTask(this)"><i class="fas fa-trash"></i></div>
                             </div>
