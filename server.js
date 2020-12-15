@@ -64,8 +64,29 @@ app.put('/tasks/:id', async (request, response) => {
     let updatedTask = new Task(request.body);
     Task.findOne({_id: request.params.id}).exec((err, item) => {
         if (err) return console.error(err);
-        item = updatedTask;
-        item.save();
+        item.name = updatedTask.name;
+        item.assignedTo = updatedTask.assignedTo;
+        item.priority = updatedTask.priority;
+        item.completed = updatedTask.completed;
+        try {
+            response.sendStatus(200);
+            item.save();
+        } catch {
+            response.sendStatus(500);
+        }
+    });
+});
+
+app.patch('/tasks/toggle-complete/:id', async (request, response) => {
+    Task.findOne({_id: request.params.id}).exec((err, item) => {
+        if (err) return console.error(err);
+        item.completed = request.body.completed;
+        try {
+            response.sendStatus(200);
+            item.save();
+        } catch {
+            response.sendStatus(500);
+        }
     });
 });
 

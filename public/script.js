@@ -1,3 +1,6 @@
+const urlParams = new URLSearchParams(window.location.search);
+const taskId = urlParams.get('id');
+
 async function getToDoList(){
     let requestOptions = {
         method: 'GET',
@@ -64,9 +67,7 @@ async function deleteTask(el){
     return true;
 }
 
-async function updateTask(){
-    const urlParams = new URLSearchParams(window.location.search);
-    const id = urlParams.get('id');
+async function updateTask(el){
     let prioritySelect = document.getElementById('priority');
     let completedSelect = document.getElementById('completed');
     let t = {
@@ -80,7 +81,23 @@ async function updateTask(){
         body: JSON.stringify(t),
         headers: {'Content-Type': 'application/json'}
     }
-    const response = await fetch('/tasks/' + id, requestOptions);
+    const response = await fetch('/tasks/' + taskId, requestOptions);
+    if (response.status != 200){
+        throw Error('task not saved!');
+    }
+    window.location.href = 'index.html';
+    return true;
+}
+
+async function toggleCompleted(el){
+    let toggleId = el.closest('.task').dataset.id;
+    let setCompleted = el.dataset.completed === 'true' ? false : true;
+    let requestOptions = {
+        method: 'PATCH',
+        body: JSON.stringify({completed: setCompleted}),
+        headers: {'Content-Type': 'application/json'}
+    }
+    const response = await fetch('/tasks/toggle-complete/' + toggleId, requestOptions);
     if (response.status != 200){
         throw Error('task not saved!');
     }

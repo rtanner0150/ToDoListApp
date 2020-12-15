@@ -14,11 +14,11 @@
         <div class="container main">
             <div class="legend">
                 <div class="row">
-                    <div class="col-12 col-md-2 name">
+                    <div class="col-12 col-md-4 name">
                         <label for="name">Task Name</label>
                         <input type="text" id="name">
                     </div>
-                    <div class="col-12 col-md-2 assignee">
+                    <div class="col-12 col-md-3 assignee">
                         <label for="assignee">Assignee</label>
                         <input type="text" id="assignee">
                     </div>
@@ -54,17 +54,15 @@
                     if(elmnt.options[i].value == value) elmnt.selectedIndex = i;
                 }
             }
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
             let nameInput = document.getElementById('name');
             let assigneeInput = document.getElementById('assignee');
             let prioritySelect = document.getElementById('priority');
             let completedSelect = document.getElementById('completed');
-            getSingleTask(id).then((task) => {
+            getSingleTask(taskId).then((task) => {
                 nameInput.value = task.name;
                 assigneeInput.value = task.assignedTo;
                 selectItemByValue(prioritySelect, task.priority);
-                selectItemByValue(completedSelect, task.completed);
+                selectItemByValue(completedSelect, String(task.completed));
             }).catch((err) => {
                 console.log(err);
             });
