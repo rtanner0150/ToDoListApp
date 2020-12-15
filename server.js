@@ -10,10 +10,9 @@ let port = process.env.PORT || 3000;
 let Task = require('./models/Task.js');
 let List = require('./models/List.js');
 
-const dbCheck = mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
-    if (err) return console.errors(err);
-    console.log('Connected to database');
-}).then(() => {console.log(dbCheck)});
+const dbCheck = mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}).then(() => {
+    console.log(dbCheck);
+}).catch(err => console.error(err));
 //open connection to db
 const db = mongoose.connection;
 //error handling for db connection
