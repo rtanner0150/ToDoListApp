@@ -13,7 +13,7 @@ if (port == null || port == "") {
 let Task = require('./models/Task.js');
 let List = require('./models/List.js');
 
-mongoose.connect(process.env.MONGODB_URI || connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
     if (err) return console.errors(err);
     console.log('Connected to database');
 });
