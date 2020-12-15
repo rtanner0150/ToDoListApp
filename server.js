@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 const connectionString = 'mongodb+srv://rtanner:Stealth20@todolistapp.e1vg3.mongodb.net/todolist-db?retryWrites=true&w=majority';
 const express = require('express');
 const app = express();
-const port = 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
+
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
 
 let Task = require('./models/Task.js');
 let List = require('./models/List.js');
