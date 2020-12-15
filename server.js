@@ -5,18 +5,15 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 3000;
-}
+let port = process.env.PORT || 3000;
 
 let Task = require('./models/Task.js');
 let List = require('./models/List.js');
 
-mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
+const dbCheck = mongoose.connect(connectionString, {useNewUrlParser: true, useUnifiedTopology: true}, (err, client) => {
     if (err) return console.errors(err);
     console.log('Connected to database');
-});
+}).then(() => {console.log(dbCheck)});
 //open connection to db
 const db = mongoose.connection;
 //error handling for db connection
@@ -25,6 +22,10 @@ db.on('error', console.error.bind(console, 'connection error:'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+
+if (process.env.NODE_ENV === 'production'){
+    console.log('in production');
+}
 
 app.listen(port, () => {
     console.log('The Express server is running at port ' + port);
